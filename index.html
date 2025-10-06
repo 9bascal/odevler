@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASÇAL 9/B Ödev Listesi</title>
+    <title>ASÇAL - 9/B Ödev Listesi</title>
     <style>
         * {
             margin: 0;
@@ -13,169 +13,105 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f5f5f5;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             min-height: 100vh;
             padding: 20px;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-            animation: fadeInDown 0.6s ease;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 12px;
         }
 
-        .date-time {
-            font-size: 1.1em;
-            opacity: 0.9;
-            margin-bottom: 10px;
+        .update-time {
+            color: #555;
+            font-size: 15px;
+            font-weight: 500;
         }
 
-        .update-info {
-            font-size: 0.95em;
-            opacity: 0.85;
-            background: rgba(255,255,255,0.1);
-            padding: 10px 20px;
-            border-radius: 20px;
-            display: inline-block;
-            backdrop-filter: blur(10px);
-        }
-
-        .homework-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            animation: fadeInUp 0.6s ease;
+        .homework-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .homework-card {
             background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: scaleIn 0.4s ease;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .homework-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        .urgent {
+            background: #ffebee;
+            border: 2px solid #ef5350;
+        }
+
+        .urgent .deadline {
+            color: #c62828;
+            font-weight: 600;
         }
 
         .subject {
             display: inline-block;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.9em;
-            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 13px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.05);
         }
 
-        .subject.matematik { background: #ff6b6b; color: white; }
-        .subject.edebiyat { background: #4ecdc4; color: white; }
-        .subject.fizik { background: #e74c3c; color: white; }
-        .subject.ingilizce { background: #f39c12; color: white; }
-        .subject.tarih { background: #9b59b6; color: white; }
-        .subject.cografya { background: #1abc9c; color: white; }
-        .subject.kimya { background: #3498db; color: white; }
-        .subject.biyoloji { background: #2ecc71; color: white; }
-        .subject.almanca { background: #e67e22; color: white; }
-        .subject.din_kulturu { background: #8e44ad; color: white; }
-        .subject.temel_dini_bilgiler { background: #9b59b6; color: white; }
-        .subject.gorsel_sanatlar { background: #e91e63; color: white; }
-        .subject.beden_egitimi { background: #00bcd4; color: white; }
-        .subject.adabi_muaseret { background: #795548; color: white; }
-        .subject.saglik_bilgisi { background: #4caf50; color: white; }
-
-        .task {
-            font-size: 1.1em;
-            margin-bottom: 15px;
-            color: #2c3e50;
-            line-height: 1.6;
+        .homework-title {
+            font-size: 18px;
+            color: #222;
+            margin-bottom: 12px;
+            line-height: 1.4;
         }
 
         .deadline {
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #7f8c8d;
-            font-size: 0.95em;
-            margin-top: 10px;
-            padding-top: 15px;
-            border-top: 2px solid #ecf0f1;
+            color: #666;
+            font-size: 14px;
         }
 
-        .deadline::before {
-            content: "📅";
-            font-size: 1.2em;
+        .deadline-icon {
+            width: 16px;
+            height: 16px;
         }
 
-        .urgent {
-            border-left: 5px solid #e74c3c;
-        }
-
-        .no-homework {
-            text-align: center;
-            color: white;
-            font-size: 1.5em;
-            padding: 60px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @media (max-width: 768px) {
             h1 {
-                font-size: 2em;
+                font-size: 24px;
             }
-            
-            .homework-grid {
-                grid-template-columns: 1fr;
+
+            .homework-card {
+                padding: 15px;
             }
         }
     </style>
@@ -183,115 +119,87 @@
 <body>
     <div class="container">
         <header>
-            <h1>ASÇAL 9/B Ödev Listesi</h1>
-            <div class="date-time" id="currentDate"></div>
-            <div class="update-info" id="updateInfo"></div>
+            <h1>Abbas Sıdıka Çalık Anadolu Lisesi 9/B Sınıfı Ödev Listesi</h1>
+            <p class="update-time" id="updateTime"></p>
         </header>
 
-        <div class="homework-grid" id="homeworkContainer"></div>
+        <div class="homework-list" id="homeworkList"></div>
     </div>
 
     <script>
-        // CONFIG DOSYASINDAN YÜKLENECEK - odevler.json
-        const config = {
-            yenilenmeZamani: "17:00'de",
-            odevler: [
-                {
-                    ders: "ingilizce",
-                    odev: "25 Ülkenin başkentini, dilini ve orada yaşayanlara verilen isimler neler, deftere yazılacak.",
-                    tarih: "7 Ekim 2025"
-                }, 
-                {
-                    ders: "biyoloji",
-                    odev: "Teori, kanun, gözlem ,nitel, nicel ve dnanın keşfi deftere yazılacak.",
-                    tarih: "7 Ekim 2025"
-                },
-                {
-                    ders: "biyoloji",
-                    odev: "Her grup ayrı ayrı hipotez oluşturulacak.",
-                    tarih: "7 Ekim 2025"
-                }
-            ]
-        };
+        // ÖDEVLERİ BURAYA EKLE - Çok basit!
+        const homeworks = [
+            {
+                subject: "İNGİLİZCE",
+                task: "25 Ülkenin başkentini, dilini ve orada yaşayanlara verilen isimler neler, deftere yazılacak.",
+                deadline: "2025-10-07" // YYYY-AA-GG formatında
+            },
+            {
+                subject: "BİYOLOJİ",
+                task: "Teori, kanun, gözlem ,nitel, nicel ve dnanın keşfi araştırılıp deftere yazılacak.",
+                deadline: "2025-10-07"
+            },
+            {
+                subject: "BİYOLOJİ",
+                task: "Her grup hipotez oluşturacak.",
+                deadline: "2025-10-07"
+            },
+        ];
 
-        // Tarihi göster
-        function updateDate() {
-            const now = new Date();
-            const options = { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            };
-            document.getElementById('currentDate').textContent = 
-                now.toLocaleDateString('tr-TR', options);
-        }
+        // Otomatik tarih ve saat gösterimi
+        const now = new Date();
+        const days = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
+        const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+        
+        const updateTimeText = `Son Güncelleme: 6 Ekim 2025, Pazartesi - 21:13`;
+        document.getElementById('updateTime').textContent = updateTimeText;
 
-        // Yenilenme zamanını göster
-        function updateRefreshInfo() {
-            document.getElementById('updateInfo').textContent = 
-                `🔄 Ödevler her gün saat ${config.yenilenmeZamani} güncellenir`;
-        }
-
-        // Ödevleri göster
-        function displayHomework() {
-            const container = document.getElementById('homeworkContainer');
-            
-            if (config.odevler.length === 0) {
-                container.innerHTML = '<div class="no-homework">🎉 Şu an ödev yok!</div>';
-                return;
-            }
-
-            container.innerHTML = config.odevler.map(odev => {
-                const isUrgent = checkUrgent(odev.tarih);
-                return `
-                    <div class="homework-card ${isUrgent ? 'urgent' : ''}">
-                        <span class="subject ${odev.ders}">${getDersAdi(odev.ders)}</span>
-                        <div class="task">${odev.odev}</div>
-                        <div class="deadline">Son Tarih: ${odev.tarih}</div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // Ders adını düzelt
-        function getDersAdi(ders) {
-            const dersAdlari = {
-                'matematik': 'Matematik',
-                'edebiyat': 'Edebiyat',
-                'fizik': 'Fizik',
-                'kimya': 'Kimya',
-                'biyoloji': 'Biyoloji',
-                'tarih': 'Tarih',
-                'cografya': 'Coğrafya',
-                'ingilizce': 'İngilizce',
-                'almanca': 'Almanca',
-                'din_kulturu': 'Din Kültürü',
-                'temel_dini_bilgiler': 'Temel Dini Bilgiler',
-                'gorsel_sanatlar': 'Görsel Sanatlar',
-                'beden_egitimi': 'Beden Eğitimi',
-                'adabi_muaseret': 'Adabı Muaşeret',
-                'saglik_bilgisi': 'Sağlık Bilgisi'
-            };
-            return dersAdlari[ders] || ders;
-        }
-
-        // Aciliyet kontrolü
-        function checkUrgent(deadline) {
+        // Tarihleri karşılaştırma fonksiyonu
+        function getDaysUntil(deadlineStr) {
+            const deadline = new Date(deadlineStr);
             const today = new Date();
-            const deadlineDate = new Date(deadline);
-            const diffTime = deadlineDate - today;
+            today.setHours(0, 0, 0, 0);
+            deadline.setHours(0, 0, 0, 0);
+            
+            const diffTime = deadline - today;
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            return diffDays <= 2;
+            return diffDays;
         }
 
-        // Sayfa yüklendiğinde
-        updateDate();
-        updateRefreshInfo();
-        displayHomework();
-        setInterval(updateDate, 60000); // Her dakika güncelle
+        // Tarihi formatla
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const day = date.getDate();
+            const month = months[date.getMonth()];
+            const dayName = days[date.getDay()];
+            return `${day} ${month} ${dayName}`;
+        }
+
+        // Ödevleri tarihe göre sırala (en yakın tarih üstte)
+        homeworks.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+
+        // Ödevleri ekrana yazdır
+        const homeworkList = document.getElementById('homeworkList');
+        homeworks.forEach(hw => {
+            const daysUntil = getDaysUntil(hw.deadline);
+            const isUrgent = daysUntil <= 1;
+            
+            const card = document.createElement('div');
+            card.className = `homework-card${isUrgent ? ' urgent' : ''}`;
+            
+            card.innerHTML = `
+                <div class="subject">${hw.subject}</div>
+                <div class="homework-title">${hw.task}</div>
+                <div class="deadline">
+                    <svg class="deadline-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"/>
+                    </svg>
+                    Son tarih: ${formatDate(hw.deadline)}
+                </div>
+            `;
+            
+            homeworkList.appendChild(card);
+        });
     </script>
 </body>
 </html>
