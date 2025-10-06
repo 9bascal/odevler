@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9. Sınıf Ödevler</title>
+    <title>ASÇAL 9/B Ödev Listesi</title>
     <style>
         * {
             margin: 0;
@@ -39,6 +39,17 @@
         .date-time {
             font-size: 1.1em;
             opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .update-info {
+            font-size: 0.95em;
+            opacity: 0.85;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
         }
 
         .homework-grid {
@@ -73,15 +84,20 @@
         }
 
         .subject.matematik { background: #ff6b6b; color: white; }
-        .subject.turkce { background: #4ecdc4; color: white; }
-        .subject.fen { background: #45b7d1; color: white; }
+        .subject.edebiyat { background: #4ecdc4; color: white; }
+        .subject.fizik { background: #e74c3c; color: white; }
         .subject.ingilizce { background: #f39c12; color: white; }
         .subject.tarih { background: #9b59b6; color: white; }
         .subject.cografya { background: #1abc9c; color: white; }
-        .subject.fizik { background: #e74c3c; color: white; }
         .subject.kimya { background: #3498db; color: white; }
         .subject.biyoloji { background: #2ecc71; color: white; }
-        .subject.diger { background: #95a5a6; color: white; }
+        .subject.almanca { background: #e67e22; color: white; }
+        .subject.din_kulturu { background: #8e44ad; color: white; }
+        .subject.temel_dini_bilgiler { background: #9b59b6; color: white; }
+        .subject.gorsel_sanatlar { background: #e91e63; color: white; }
+        .subject.beden_egitimi { background: #00bcd4; color: white; }
+        .subject.adabi_muaseret { background: #795548; color: white; }
+        .subject.saglik_bilgisi { background: #4caf50; color: white; }
 
         .task {
             font-size: 1.1em;
@@ -167,38 +183,36 @@
 <body>
     <div class="container">
         <header>
-            <h1>📚 9. Sınıf Ödevler</h1>
+            <h1>ASÇAL 9/B Ödev Listesi</h1>
             <div class="date-time" id="currentDate"></div>
+            <div class="update-info" id="updateInfo"></div>
         </header>
 
         <div class="homework-grid" id="homeworkContainer"></div>
     </div>
 
     <script>
-        // ÖDEVLER BURAYA EKLENİR
-        // Format: { ders: "ders_adi", odev: "ödev açıklaması", tarih: "teslim tarihi" }
-        const odevler = [
-            {
-                ders: "matematik",
-                odev: "Sayfa 45-47 tüm soruları çöz",
-                tarih: "8 Ekim 2025"
-            },
-            {
-                ders: "turkce",
-                odev: "Kitap okuma raporu hazırla (2 sayfa)",
-                tarih: "10 Ekim 2025"
-            },
-            {
-                ders: "ingilizce",
-                odev: "Unit 3 kelime çalışması ve alıştırmalar",
-                tarih: "9 Ekim 2025"
-            },
-            {
-                ders: "fen",
-                odev: "Deney raporu tamamla",
-                tarih: "7 Ekim 2025"
-            }
-        ];
+        // CONFIG DOSYASINDAN YÜKLENECEK - odevler.json
+        const config = {
+            yenilenmeZamani: "17:00",
+            odevler: [
+                {
+                    ders: "ingilizce",
+                    odev: "25 Ülkenin başkentini, dilini ve orada yaşayanlara verilen isimler neler, deftere yazılacak.",
+                    tarih: "7 Ekim 2025"
+                }, 
+                {
+                    ders: "biyoloji",
+                    odev: "Teori, kanun, gözlem ,nitel, nicel ve dnanın keşfi deftere yazılacak.",
+                    tarih: "7 Ekim 2025"
+                },
+                {
+                    ders: "biyoloji",
+                    odev: "Her grup ayrı ayrı hipotez oluşturulacak.",
+                    tarih: "7 Ekim 2025"
+                }
+            ]
+        };
 
         // Tarihi göster
         function updateDate() {
@@ -215,25 +229,53 @@
                 now.toLocaleDateString('tr-TR', options);
         }
 
+        // Yenilenme zamanını göster
+        function updateRefreshInfo() {
+            document.getElementById('updateInfo').textContent = 
+                `🔄 Ödevler her gün saat ${config.yenilenmeZamani} güncellenir`;
+        }
+
         // Ödevleri göster
         function displayHomework() {
             const container = document.getElementById('homeworkContainer');
             
-            if (odevler.length === 0) {
+            if (config.odevler.length === 0) {
                 container.innerHTML = '<div class="no-homework">🎉 Şu an ödev yok!</div>';
                 return;
             }
 
-            container.innerHTML = odevler.map(odev => {
+            container.innerHTML = config.odevler.map(odev => {
                 const isUrgent = checkUrgent(odev.tarih);
                 return `
                     <div class="homework-card ${isUrgent ? 'urgent' : ''}">
-                        <span class="subject ${odev.ders}">${odev.ders}</span>
+                        <span class="subject ${odev.ders}">${getDersAdi(odev.ders)}</span>
                         <div class="task">${odev.odev}</div>
                         <div class="deadline">Son Tarih: ${odev.tarih}</div>
                     </div>
                 `;
             }).join('');
+        }
+
+        // Ders adını düzelt
+        function getDersAdi(ders) {
+            const dersAdlari = {
+                'matematik': 'Matematik',
+                'edebiyat': 'Edebiyat',
+                'fizik': 'Fizik',
+                'kimya': 'Kimya',
+                'biyoloji': 'Biyoloji',
+                'tarih': 'Tarih',
+                'cografya': 'Coğrafya',
+                'ingilizce': 'İngilizce',
+                'almanca': 'Almanca',
+                'din_kulturu': 'Din Kültürü',
+                'temel_dini_bilgiler': 'Temel Dini Bilgiler',
+                'gorsel_sanatlar': 'Görsel Sanatlar',
+                'beden_egitimi': 'Beden Eğitimi',
+                'adabi_muaseret': 'Adabı Muaşeret',
+                'saglik_bilgisi': 'Sağlık Bilgisi'
+            };
+            return dersAdlari[ders] || ders;
         }
 
         // Aciliyet kontrolü
@@ -247,6 +289,7 @@
 
         // Sayfa yüklendiğinde
         updateDate();
+        updateRefreshInfo();
         displayHomework();
         setInterval(updateDate, 60000); // Her dakika güncelle
     </script>
